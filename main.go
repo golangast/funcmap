@@ -18,6 +18,7 @@ func Add(a, b int) int {
 	c := a + b
 	return c
 }
+
 func (t *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
 
 	// Add global methods if data is a map
@@ -34,6 +35,7 @@ type TemplateRenderer struct {
 
 func main() {
 	e := echo.New()
+
 	//setting the funcmaps
 	renderer := &TemplateRenderer{
 		templates: template.Must(template.New("t").Funcs(template.FuncMap{
@@ -41,6 +43,7 @@ func main() {
 			"Add": Add,
 		}).ParseGlob("views/*.html")),
 	}
+
 	e.Renderer = renderer
 	e.Logger.SetLevel(log.ERROR)
 	e.Use(middleware.Logger())
